@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://cc6ysyvr2gfw7"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
+[ext_resource type="Texture2D" uid="uid://b7elwxekvxuln" path="res://Assets/Sprites/boat.png" id="2_tx1g5"]
+[ext_resource type="AudioStream" uid="uid://b43scq3j28fu0" path="res://Assets/SFX/whistle.wav" id="3_hn01d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8c7k"]
+radius = 17.1172
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_au34i"]
+particle_flag_disable_z = true
+gravity = Vector3(-80, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6ad14"]
+
+[sub_resource type="Curve" id="Curve_d412m"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.21978), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jomiy"]
+curve = SubResource("Curve_d412m")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v34ou"]
+particle_flag_disable_z = true
+gravity = Vector3(-80, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_jomiy")
+color = Color(0.784314, 0.301961, 0.305882, 1)
+color_ramp = SubResource("GradientTexture1D_6ad14")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1205"]
+radius = 20.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_tj03s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_q8c7k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(3, 1)
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_tx1g5")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+z_as_relative = false
+position = Vector2(-70, 90)
+process_material = SubResource("ParticleProcessMaterial_au34i")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Sprite2D"]
+z_as_relative = false
+position = Vector2(-15, 100)
+amount = 43
+process_material = SubResource("ParticleProcessMaterial_v34ou")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Sprite2D"]
+z_as_relative = false
+position = Vector2(40, 95)
+process_material = SubResource("ParticleProcessMaterial_au34i")
+
+[node name="DamageArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea2D"]
+shape = SubResource("CircleShape2D_v1205")
+
+[node name="DamageStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hn01d")
+volume_db = 1.763
+
+[connection signal="body_entered" from="DamageArea2D" to="." method="OnDamageAreaBodyEntered"]
