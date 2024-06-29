@@ -9,13 +9,13 @@ public partial class BarrelsUi : PanelContainer
 
    public override void _Ready()
    {
-      instance = this; // Singleton
+	  instance = this; // Singleton
 
-      nbBarrels = GetNode<Label>("MarginContainer/HBoxContainer/NbLabel");
+	  nbBarrels = GetNode<Label>("MarginContainer/HBoxContainer/NbLabel");
    }
 
    public void SetNbBarrels()
    {
-      nbBarrels.Text = GameManager.nbBarrels.ToString();
+	  nbBarrels.Text = GameManager.nbBarrels.ToString();
    }
 }

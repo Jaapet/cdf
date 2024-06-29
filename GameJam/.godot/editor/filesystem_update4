@@ -1,0 +1,14 @@
+res://Scenes/game.tscn
+res://Scenes/barrels_ui.tscn
+res://Scripts/BarrelsUi.cs
+res://Scripts/Parallax.cs
+res://Scripts/Water.cs
+res://Scripts/Docks.cs
+res://Scripts/WaterShip.cs
+res://Scripts/Barrel.cs
+res://Scripts/Health.cs
+res://Scripts/GameManager.cs
+res://Scripts/Player.cs
+res://Scripts/WaterObject.cs
+res://Scenes/shark.tscn
+res://Scripts/Shark.cs

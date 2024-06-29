@@ -14,6 +14,7 @@ public partial class WaterObject : CharacterBody2D
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       AddToGroup("water_object");
+      
    }
 
    public override void _Process(double delta)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://oc0f7f5ace5q"]
+[gd_scene load_steps=23 format=3 uid="uid://oc0f7f5ace5q"]
 
 [ext_resource type="PackedScene" uid="uid://cc6ysyvr2gfw7" path="res://Scenes/player.tscn" id="1_hh0f2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_nousa"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bm6y1i84cdf1q" path="res://Assets/Sprites/people.png" id="9_mpl80"]
 [ext_resource type="Texture2D" uid="uid://dmvpreqy2akhd" path="res://Assets/Sprites/JO.png" id="10_bbvhy"]
 [ext_resource type="PackedScene" uid="uid://cepp8621o2u36" path="res://Scenes/barrel.tscn" id="13_3ka8y"]
+[ext_resource type="PackedScene" uid="uid://dserobsh2nef0" path="res://Scenes/shark.tscn" id="15_ihwe1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qtt"]
 size = Vector2(631, 98)
@@ -180,7 +181,7 @@ motion_mirroring = Vector2(990, 0)
 
 [node name="WaterSprite2D" type="Sprite2D" parent="Backgrounds/WaterParallaxBackground/ParallaxLayer"]
 material = SubResource("ShaderMaterial_1wjby")
-position = Vector2(14965, 11412.5)
+position = Vector2(14995, 11465)
 scale = Vector2(60.86, 53.594)
 texture = SubResource("PlaceholderTexture2D_qwaq5")
 
@@ -199,6 +200,10 @@ position = Vector2(510, -64)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0hrqe")
+
+[node name="Shark" parent="." instance=ExtResource("15_ihwe1")]
+z_index = 1
+position = Vector2(567, -10)
 
 [connection signal="TakedDamage" from="Player" to="UI/Health" method="OnPlayerTakedDamage"]
 [connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]
