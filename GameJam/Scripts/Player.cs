@@ -9,6 +9,9 @@ public partial class Player : CharacterBody2D
    private Sprite2D sprite;
    private Area2D damageArea;
    private AudioStreamPlayer2D damageSoundPlayer;
+   private AudioStreamPlayer2D normalSoundPlayer;
+   private AudioStreamPlayer2D accelerationSoundPlayer;
+   private AudioStreamPlayer2D deccelerationSoundPlayer;
    private Timer invincibilityTimer;
    private Timer jumpTimer;
    private GpuParticles2D damagedParticle;
@@ -21,6 +24,9 @@ public partial class Player : CharacterBody2D
    [Signal] public delegate void TakedDamageEventHandler();
    [Signal] public delegate void HealedEventHandler();
    [Signal] public delegate void DeadedEventHandler();
+
+   [Export] private Texture2D normalSpriteSheet;
+   [Export] private Texture2D noJumpSpriteSheet;
 
    [Export] private float verticalSpeed = 20f;
    [Export] private float horizontalSpeed = 20f;
@@ -50,6 +56,9 @@ public partial class Player : CharacterBody2D
       collision = GetNode<CollisionShape2D>("CollisionShape2D");
       shadowSprite = GetNode<Sprite2D>("ShadowSprite2D");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+      normalSoundPlayer = GetNode<AudioStreamPlayer2D>("NormalStreamPlayer2D");
+      accelerationSoundPlayer = GetNode<AudioStreamPlayer2D>("AccelerationStreamPlayer2D");
+      deccelerationSoundPlayer = GetNode<AudioStreamPlayer2D>("DeccelerationStreamPlayer2D");
 
       currentHealth = maxHealth;
    }
@@ -83,6 +92,7 @@ public partial class Player : CharacterBody2D
 
       canJump = false;
       animationPlayer.Play("jump");
+      sprite.Texture = noJumpSpriteSheet;
    }
    protected void ApplyVelocity(Vector2 velocity)
    {
@@ -128,10 +138,36 @@ public partial class Player : CharacterBody2D
       {
          velocity = new Vector2(velocity.X - 20, velocity.Y);
          engineParticle.Emitting = true;
-
       }
 
+      SetEngineSounds(direction);
+
       ApplyVelocity(velocity);
+   }
+
+   private void SetEngineSounds(Vector2 direction)
+   {
+      if (direction.X < 0)
+      {
+         normalSoundPlayer.Stop();
+         accelerationSoundPlayer.Stop();
+         if (!deccelerationSoundPlayer.Playing)
+            deccelerationSoundPlayer.Play();
+      }
+      else if (direction.X > 0)
+      {
+         normalSoundPlayer.Stop();
+         if (!accelerationSoundPlayer.Playing)
+            accelerationSoundPlayer.Play();
+         deccelerationSoundPlayer.Stop();
+      }
+      else
+      {
+         if (!normalSoundPlayer.Playing)
+            normalSoundPlayer.Play();
+         accelerationSoundPlayer.Stop();
+         deccelerationSoundPlayer.Stop();
+      }
    }
 
    private void TakeDamage()
@@ -204,6 +240,9 @@ public partial class Player : CharacterBody2D
       {
          currentHealth++;
          EmitSignal(SignalName.Healed);
+
+         // Damaged Particles
+         SetDamagedParticles();
       }
    }
 
@@ -240,7 +279,13 @@ public partial class Player : CharacterBody2D
 
    private void OnJumpTimerTimeout()
    {
+      sprite.Texture = normalSpriteSheet;
       canJump = true;
+   }
+
+   private void OnNormalStreamPlayerFinished()
+   {
+      normalSoundPlayer.Play();
    }
 
    private void ActivateObstacleCollision(bool activate)

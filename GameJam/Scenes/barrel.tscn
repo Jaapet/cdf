@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cepp8621o2u36"]
+[gd_scene load_steps=11 format=3 uid="uid://cepp8621o2u36"]
 
 [ext_resource type="Texture2D" uid="uid://wcbmqiici0xj" path="res://Assets/Sprites/barrel.png" id="1_3hi1m"]
 [ext_resource type="Script" path="res://Scripts/Barrel.cs" id="1_7n4ap"]
 [ext_resource type="Shader" path="res://Assets/Shaders/highlight.gdshader" id="2_266e8"]
+[ext_resource type="AudioStream" uid="uid://ca42810qloemo" path="res://Assets/SFX/Bonus.wav" id="4_1vu7w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dnsk"]
 radius = 4.0
@@ -127,3 +128,5 @@ libraries = {
 autoplay = "Idle"
 
 [node name="CollectedStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_1vu7w")
+bus = &"SFX"

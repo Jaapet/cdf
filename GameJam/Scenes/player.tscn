@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cc6ysyvr2gfw7"]
+[gd_scene load_steps=31 format=3 uid="uid://cc6ysyvr2gfw7"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
 [ext_resource type="Texture2D" uid="uid://dnrrkcyay2xce" path="res://Assets/Sprites/player_idle.png" id="2_3y4wq"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://2ipa80sp0ot4" path="res://Scenes/death_particles_2d.tscn" id="4_7vmdl"]
 [ext_resource type="Texture2D" uid="uid://b8p5cvl2pp2yd" path="res://Assets/Sprites/player_shadow.png" id="5_nvq32"]
 [ext_resource type="AudioStream" uid="uid://bsirs60hykoas" path="res://Assets/SFX/Mario Jump - QuickSounds.com.mp3" id="6_b27mf"]
+[ext_resource type="AudioStream" uid="uid://cipx08ao42d0q" path="res://Assets/SFX/MOTOR_JET_V1.wav" id="8_0vurn"]
+[ext_resource type="AudioStream" uid="uid://cpnw4p2wgq0e5" path="res://Assets/SFX/ACCELERATION_MAX_V2.wav" id="8_4swj5"]
+[ext_resource type="AudioStream" uid="uid://de85adsfoki1o" path="res://Assets/SFX/DECCELERATION_V1.wav" id="9_tb47p"]
+[ext_resource type="AudioStream" uid="uid://b0fh410hagh2e" path="res://Assets/SFX/Fall.wav" id="11_vu1bx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ciqb7"]
 radius = 2.0
@@ -26,7 +30,7 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.21978), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_jomiy"]
+[sub_resource type="CurveTexture" id="CurveTexture_0w2vp"]
 curve = SubResource("Curve_d412m")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v34ou"]
@@ -34,7 +38,7 @@ particle_flag_disable_z = true
 gravity = Vector3(-80, 0, 0)
 scale_min = 1.5
 scale_max = 1.5
-scale_curve = SubResource("CurveTexture_jomiy")
+scale_curve = SubResource("CurveTexture_0w2vp")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1fr3p"]
 particles_animation = true
@@ -150,6 +154,36 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wxee6"]
+resource_name = "death"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/DeathParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ryvad"]
@@ -311,35 +345,17 @@ tracks/10/keys = {
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_wxee6"]
-resource_name = "death"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D/DeathParticles2D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FallStreamPlayer2D:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.9),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mscjh"]
@@ -445,6 +461,23 @@ stream = ExtResource("6_b27mf")
 volume_db = -8.814
 bus = &"SFX"
 
+[node name="AccelerationStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_4swj5")
+bus = &"SFX"
+
+[node name="DeccelerationStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_tb47p")
+bus = &"SFX"
+
+[node name="NormalStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_0vurn")
+bus = &"SFX"
+
+[node name="FallStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_vu1bx")
+bus = &"SFX"
+
 [connection signal="body_entered" from="DamageArea2D" to="." method="OnDamageAreaBodyEntered"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="OnInvincibilityTimerTimeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]
+[connection signal="finished" from="NormalStreamPlayer2D" to="." method="OnNormalStreamPlayerFinished"]

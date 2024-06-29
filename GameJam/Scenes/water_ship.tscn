@@ -1,9 +1,31 @@
-[gd_scene load_steps=9 format=3 uid="uid://c66wcrgh1p3tw"]
+[gd_scene load_steps=14 format=3 uid="uid://c66wcrgh1p3tw"]
 
 [ext_resource type="Texture2D" uid="uid://b7elwxekvxuln" path="res://Assets/Sprites/boat.png" id="1_erlkt"]
 [ext_resource type="Script" path="res://Scripts/WaterShip.cs" id="1_kj20f"]
+[ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_7qjq6"]
 [ext_resource type="AudioStream" uid="uid://egm3xysb2al5" path="res://Assets/SFX/explosion.wav" id="3_jvo6f"]
 [ext_resource type="PackedScene" uid="uid://2ipa80sp0ot4" path="res://Scenes/death_particles_2d.tscn" id="3_l735e"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7552j"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_poy40"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.21978), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jomiy"]
+curve = SubResource("Curve_poy40")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oupkc"]
+particle_flag_disable_z = true
+initial_velocity_max = 10.0
+gravity = Vector3(0, 100.2, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_jomiy")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_35fv0"]
 
@@ -73,9 +95,21 @@ _data = {
 script = ExtResource("1_kj20f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 rotation = -1.5708
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_erlkt")
+
+[node name="EngineParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_7552j")
+position = Vector2(-15.0004, 99.9999)
+amount = 9
+process_material = SubResource("ParticleProcessMaterial_oupkc")
+texture = ExtResource("3_7qjq6")
+lifetime = 2.0
+randomness = 0.29
+local_coords = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 2)
