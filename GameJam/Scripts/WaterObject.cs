@@ -3,9 +3,15 @@ using System;
 
 public partial class WaterObject : CharacterBody2D
 {
+   #region Components
+   private AnimationPlayer animationPlayer;
+   #endregion
+
    public override void _Ready()
    {
       base._Ready();
+
+      animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       AddToGroup("water_object");
    }
@@ -19,6 +25,6 @@ public partial class WaterObject : CharacterBody2D
 
    public void Death()
    {
-      QueueFree();
+      animationPlayer.Play("Death");
    }
 }

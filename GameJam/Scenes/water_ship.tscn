@@ -1,9 +1,101 @@
-[gd_scene load_steps=4 format=3 uid="uid://c66wcrgh1p3tw"]
+[gd_scene load_steps=15 format=3 uid="uid://c66wcrgh1p3tw"]
 
 [ext_resource type="Texture2D" uid="uid://b7elwxekvxuln" path="res://Assets/Sprites/boat.png" id="1_erlkt"]
 [ext_resource type="Script" path="res://Scripts/WaterShip.cs" id="1_kj20f"]
+[ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_1tsa7"]
+[ext_resource type="AudioStream" uid="uid://egm3xysb2al5" path="res://Assets/SFX/explosion.wav" id="3_jvo6f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_35fv0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p16cb"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_i7igm"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lrvll"]
+gradient = SubResource("Gradient_i7igm")
+
+[sub_resource type="Curve" id="Curve_6skk1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.54878, 1), 0.0, 0.0, 0, 0, Vector2(0.79878, 0.791209), -1.44176, -1.44176, 0, 0, Vector2(1, 0.032967), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_gjilo"]
+curve = SubResource("Curve_6skk1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ubap4"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_gjilo")
+color = Color(0.717647, 0, 0.156863, 1)
+color_ramp = SubResource("GradientTexture1D_lrvll")
+
+[sub_resource type="Animation" id="Animation_blw66"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hdt42"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathStreamPlayer2D:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pobay"]
+_data = {
+"Death": SubResource("Animation_blw66"),
+"RESET": SubResource("Animation_hdt42")
+}
 
 [node name="Water_Ship" type="CharacterBody2D"]
 script = ExtResource("1_kj20f")
@@ -16,3 +108,24 @@ texture = ExtResource("1_erlkt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(3, 2)
 shape = SubResource("CircleShape2D_35fv0")
+
+[node name="DeathParticles2D" type="GPUParticles2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_p16cb")
+emitting = false
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_ubap4")
+texture = ExtResource("3_1tsa7")
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+randomness = 0.08
+
+[node name="DeathStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jvo6f")
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pobay")
+}
