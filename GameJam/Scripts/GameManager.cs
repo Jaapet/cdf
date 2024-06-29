@@ -5,7 +5,7 @@ public partial class GameManager : Node2D
 {
    private double time = 0;
    [Export] public static float scrollingSpeed = 1f;
-
+   public static int nbBarrels = 0;
 
    PackedScene shipScene = ResourceLoader.Load<PackedScene>("res://Scenes/water_ship.tscn");
    private bool hasSpawned = false;

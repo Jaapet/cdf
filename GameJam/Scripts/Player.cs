@@ -10,7 +10,11 @@ public partial class Player : CharacterBody2D
    private Area2D damageArea;
    private AudioStreamPlayer2D damageSoundPlayer;
    private Timer invincibilityTimer;
+   private Timer jumpTimer;
    private GpuParticles2D damagedParticle;
+   private CollisionShape2D collision;
+   private AnimationPlayer animationPlayer;
+   private Sprite2D shadowSprite;
    #endregion
 
    [Signal] public delegate void TakedDamageEventHandler();
@@ -25,7 +29,8 @@ public partial class Player : CharacterBody2D
    private float leftLimit = 20;
 
    private bool isInvincibible = false;
-
+   [Export] private bool isJumping = false;
+   private bool canJump = true;
 
    public override void _Ready()
    {
@@ -36,7 +41,11 @@ public partial class Player : CharacterBody2D
       damageArea = GetNode<Area2D>("DamageArea2D");
       damageSoundPlayer = GetNode<AudioStreamPlayer2D>("DamageStreamPlayer2D");
       invincibilityTimer = GetNode<Timer>("InvincibilityTimer");
+      jumpTimer = GetNode<Timer>("JumpTimer");
       damagedParticle = GetNode<GpuParticles2D>("Sprite2D/DamagedParticles2D");
+      collision = GetNode<CollisionShape2D>("CollisionShape2D");
+      shadowSprite = GetNode<Sprite2D>("ShadowSprite2D");
+      animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
       currentHealth = maxHealth;
    }
@@ -59,8 +68,18 @@ public partial class Player : CharacterBody2D
    private void ReadInput()
    {
       this.direction = Input.GetVector("Left", "Right", "Up", "Down");
+      if (Input.IsActionPressed("Jump"))
+         Jump();
    }
 
+   private void Jump()
+   {
+      if (isJumping || !canJump)
+         return;
+
+      canJump = false;
+      animationPlayer.Play("jump");
+   }
    protected void ApplyVelocity(Vector2 velocity)
    {
       Velocity = velocity;
@@ -159,7 +178,8 @@ public partial class Player : CharacterBody2D
 
    private void CollectBarrel()
    {
-      
+      GameManager.nbBarrels++;
+      BarrelsUi.instance.SetNbBarrels();
    }
 
 
@@ -187,4 +207,8 @@ public partial class Player : CharacterBody2D
       sprite.Modulate = new Color(1, 1, 1, 1);
    }
 
+   private void OnJumpTimerTimeout()
+   {
+      canJump = true;
+   }
 }

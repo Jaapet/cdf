@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cc6ysyvr2gfw7"]
+[gd_scene load_steps=19 format=3 uid="uid://cc6ysyvr2gfw7"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
 [ext_resource type="Texture2D" uid="uid://dnrrkcyay2xce" path="res://Assets/Sprites/player_idle.png" id="2_3y4wq"]
 [ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_8c8e7"]
 [ext_resource type="AudioStream" uid="uid://b43scq3j28fu0" path="res://Assets/SFX/whistle.wav" id="3_hn01d"]
+[ext_resource type="Texture2D" uid="uid://b8p5cvl2pp2yd" path="res://Assets/Sprites/player_shadow.png" id="5_nvq32"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ciqb7"]
 radius = 2.0
@@ -53,6 +54,33 @@ turbulence_enabled = true
 radius = 4.0
 height = 22.0
 
+[sub_resource type="Animation" id="Animation_h2agm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -6)]
+}
+
 [sub_resource type="Animation" id="Animation_ryvad"]
 resource_name = "idle"
 length = 2.0
@@ -70,25 +98,101 @@ tracks/0/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_h2agm"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_gp62j"]
+resource_name = "jump"
+length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4, 0.7, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, -6), Vector2(1, -12), Vector2(1, -12), Vector2(1, -6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShadowSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0]
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D/GPUParticles2D2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:isJumping")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("JumpTimer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [-1],
+"method": &"start"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mscjh"]
 _data = {
 "RESET": SubResource("Animation_h2agm"),
-"idle": SubResource("Animation_ryvad")
+"idle": SubResource("Animation_ryvad"),
+"jump": SubResource("Animation_gp62j")
 }
 
 [node name="Player" type="CharacterBody2D"]
@@ -155,5 +259,16 @@ libraries = {
 }
 autoplay = "idle"
 
+[node name="ShadowSprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_nvq32")
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="JumpStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
 [connection signal="body_entered" from="DamageArea2D" to="." method="OnDamageAreaBodyEntered"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="OnInvincibilityTimerTimeout"]
+[connection signal="timeout" from="JumpTimer" to="." method="OnJumpTimerTimeout"]
