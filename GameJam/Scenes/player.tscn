@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://cc6ysyvr2gfw7"]
+[gd_scene load_steps=27 format=3 uid="uid://cc6ysyvr2gfw7"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
 [ext_resource type="Texture2D" uid="uid://dnrrkcyay2xce" path="res://Assets/Sprites/player_idle.png" id="2_3y4wq"]
 [ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_8c8e7"]
 [ext_resource type="AudioStream" uid="uid://b43scq3j28fu0" path="res://Assets/SFX/whistle.wav" id="3_hn01d"]
+[ext_resource type="PackedScene" uid="uid://2ipa80sp0ot4" path="res://Scenes/death_particles_2d.tscn" id="4_7vmdl"]
 [ext_resource type="Texture2D" uid="uid://b8p5cvl2pp2yd" path="res://Assets/Sprites/player_shadow.png" id="5_nvq32"]
 [ext_resource type="AudioStream" uid="uid://bsirs60hykoas" path="res://Assets/SFX/Mario Jump - QuickSounds.com.mp3" id="6_b27mf"]
 
@@ -311,9 +312,40 @@ tracks/10/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_wxee6"]
+resource_name = "death"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/DeathParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mscjh"]
 _data = {
 "RESET": SubResource("Animation_h2agm"),
+"death": SubResource("Animation_wxee6"),
 "idle": SubResource("Animation_ryvad"),
 "jump": SubResource("Animation_gp62j")
 }
@@ -377,6 +409,8 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.9
 local_coords = true
+
+[node name="DeathParticles2D" parent="Sprite2D" instance=ExtResource("4_7vmdl")]
 
 [node name="DamageArea2D" type="Area2D" parent="."]
 position = Vector2(3, 0)

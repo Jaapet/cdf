@@ -22,18 +22,29 @@ public partial class Spawner : Node2D
       timer.Start();
    }
 
-   private void OnTimerTimeout()
+   protected virtual void OnTimerTimeout()
    {
-      Spawn();
+      StartTimer();
+      Spawn(new Vector2(GlobalPosition.X, GlobalPosition.Y + (float)Utils.GetRandomNumber(upY, downY)));
    }
 
-   private void Spawn()
+   protected void StartTimer()
    {
       timer.WaitTime = Utils.GetRandomNumber(minTime, maxTime);
       timer.Start();
+   }
 
+   protected void Spawn(Vector2 position)
+   {
       Node2D obj = objScene.Instantiate() as Node2D;
       GetTree().Root.GetChild(0).AddChild(obj);
-      obj.GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + (float)Utils.GetRandomNumber(upY, downY));
+      obj.GlobalPosition = position;
+   }
+
+   protected void Spawn(float x, float y)
+   {
+      Node2D obj = objScene.Instantiate() as Node2D;
+      GetTree().Root.GetChild(0).AddChild(obj);
+      obj.GlobalPosition = new Vector2(x, y);
    }
 }

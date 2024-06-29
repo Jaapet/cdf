@@ -19,6 +19,8 @@ public partial class Player : CharacterBody2D
    #endregion
 
    [Signal] public delegate void TakedDamageEventHandler();
+   [Signal] public delegate void HealedEventHandler();
+   [Signal] public delegate void DeadedEventHandler();
 
    [Export] private float verticalSpeed = 20f;
    [Export] private float horizontalSpeed = 20f;
@@ -158,7 +160,8 @@ public partial class Player : CharacterBody2D
 
    private void Death()
    {
-      GD.Print("Death");
+      animationPlayer.Play("death");
+      EmitSignal(SignalName.Deaded);
    }
 
    private void SetDamagedParticles()
@@ -195,6 +198,14 @@ public partial class Player : CharacterBody2D
       BarrelsUi.instance.SetNbBarrels();
    }
 
+   private void Heal()
+   {
+      if (currentHealth < maxHealth)
+      {
+         currentHealth++;
+         EmitSignal(SignalName.Healed);
+      }
+   }
 
    private void OnDamageAreaBodyEntered(Node2D body)
    {
@@ -211,6 +222,13 @@ public partial class Player : CharacterBody2D
          WaterObject waterObject = (WaterObject)body;
          waterObject.Death();
          CollectBarrel();
+      }
+      // For Heart
+      if (body.IsInGroup("heart"))
+      {
+         WaterObject waterObject = (WaterObject)body;
+         waterObject.Death();
+         Heal();
       }
    }
 

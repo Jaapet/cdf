@@ -1,6 +1,13 @@
 using Godot;
 using System;
 
+public enum E_Difficulty
+{
+   EASY,
+   MEDIUM,
+   HARD
+};
+
 public partial class GameManager : Node2D
 {
    private double time = 0;
@@ -9,6 +16,8 @@ public partial class GameManager : Node2D
 
    PackedScene shipScene = ResourceLoader.Load<PackedScene>("res://Scenes/water_ship.tscn");
    private bool hasSpawned = false;
+
+   public static E_Difficulty difficulty;
 
    public override void _Ready()
    {

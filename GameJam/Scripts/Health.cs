@@ -31,4 +31,8 @@ public partial class Health : PanelContainer
    {
       SetHealth(Player.instance.currentHealth);
    }
+   private void OnPlayerHealed()
+   {
+      SetHealth(Player.instance.currentHealth);
+   }
 }
