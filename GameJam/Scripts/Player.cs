@@ -10,6 +10,7 @@ public partial class Player : CharacterBody2D
    private Area2D damageArea;
    private AudioStreamPlayer2D damageSoundPlayer;
    private Timer invincibilityTimer;
+   private GpuParticles2D damagedParticle;
    #endregion
 
    [Signal] public delegate void TakedDamageEventHandler();
@@ -35,6 +36,7 @@ public partial class Player : CharacterBody2D
       damageArea = GetNode<Area2D>("DamageArea2D");
       damageSoundPlayer = GetNode<AudioStreamPlayer2D>("DamageStreamPlayer2D");
       invincibilityTimer = GetNode<Timer>("InvincibilityTimer");
+      damagedParticle = GetNode<GpuParticles2D>("Sprite2D/DamagedParticles2D");
 
       currentHealth = maxHealth;
    }
@@ -112,6 +114,9 @@ public partial class Player : CharacterBody2D
       isInvincibible = true;
       invincibilityTimer.Start();
 
+      // Damaged Particles
+      SetDamagedParticles();
+
       // Sound
       damageSoundPlayer.Play();
 
@@ -122,6 +127,26 @@ public partial class Player : CharacterBody2D
    private void Death()
    {
       GD.Print("Death");
+   }
+
+   private void SetDamagedParticles()
+   {
+      switch (currentHealth)
+      {
+         case 3:
+            damagedParticle.Emitting = false;
+            break;
+         case 2:
+            damagedParticle.Emitting = true;
+            damagedParticle.Amount = 3;
+            break;
+         case 1:
+            damagedParticle.Emitting = true;
+            damagedParticle.Amount = 8;
+            break;
+         default:
+            break;
+      }
    }
 
    private void InvincibilityBlinking()
