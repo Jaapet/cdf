@@ -3,10 +3,13 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+   public static Player instance;
+
    #region Components
    private Sprite2D sprite;
    private Area2D damageArea;
    private AudioStreamPlayer2D damageSoundPlayer;
+   private Timer invincibilityTimer;
    #endregion
 
    [Signal] public delegate void TakedDamageEventHandler();
@@ -15,19 +18,25 @@ public partial class Player : CharacterBody2D
    [Export] private float horizontalSpeed = 20f;
    private Vector2 direction;
 
-   private int maxHealth;
-   private int currentHealth;
+   private int maxHealth = 3;
+   public int currentHealth;
 
    private float leftLimit = 20;
 
+   private bool isInvincibible = false;
 
 
    public override void _Ready()
    {
       base._Ready();
+      instance = this; // Singleton, ne pas toucher svp
 
+      sprite = GetNode<Sprite2D>("Sprite2D");
       damageArea = GetNode<Area2D>("DamageArea2D");
       damageSoundPlayer = GetNode<AudioStreamPlayer2D>("DamageStreamPlayer2D");
+      invincibilityTimer = GetNode<Timer>("InvincibilityTimer");
+
+      currentHealth = maxHealth;
    }
 
    public override void _Process(double delta)
@@ -42,6 +51,7 @@ public partial class Player : CharacterBody2D
       base._PhysicsProcess(delta);
 
       Move();
+      InvincibilityBlinking();
    }
 
    private void ReadInput()
@@ -90,6 +100,18 @@ public partial class Player : CharacterBody2D
 
    private void TakeDamage()
    {
+      if (isInvincibible)
+         return;
+
+      // Decreased Health
+      currentHealth--;
+      if (currentHealth <= 0)
+         Death();
+
+      // Invincibility
+      isInvincibible = true;
+      invincibilityTimer.Start();
+
       // Sound
       damageSoundPlayer.Play();
 
@@ -97,9 +119,22 @@ public partial class Player : CharacterBody2D
       EmitSignal(SignalName.TakedDamage);
    }
 
+   private void Death()
+   {
+      GD.Print("Death");
+   }
+
+   private void InvincibilityBlinking()
+   {
+      if (!isInvincibible)
+         return;
+
+      sprite.Modulate = sprite.Modulate.A == 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
+   }
+
    private void OnDamageAreaBodyEntered(Node2D body)
    {
-      GD.Print(body.Name);
+      // For Obstacles
       if (body.IsInGroup("water_object"))
       {
          WaterObject waterObject = (WaterObject)body;
@@ -107,4 +142,11 @@ public partial class Player : CharacterBody2D
          TakeDamage();
       }
    }
+
+   private void OnInvincibilityTimerTimeout()
+   {
+      isInvincibible = false;
+      sprite.Modulate = new Color(1, 1, 1, 1);
+   }
+
 }

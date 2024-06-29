@@ -1,23 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://oc0f7f5ace5q"]
+[gd_scene load_steps=18 format=3 uid="uid://oc0f7f5ace5q"]
 
 [ext_resource type="PackedScene" uid="uid://cc6ysyvr2gfw7" path="res://Scenes/player.tscn" id="1_hh0f2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_nousa"]
-[ext_resource type="Script" path="res://Scripts/Parallax.cs" id="3_0eejo"]
+[ext_resource type="Script" path="res://Scripts/Paralla.gd" id="3_7lm4o"]
 [ext_resource type="Shader" path="res://Assets/Shaders/water.gdshader" id="3_uhnxy"]
-[ext_resource type="PackedScene" uid="uid://c4t4cgcxdclbw" path="res://Scenes/health.tscn" id="4_0frve"]
-[ext_resource type="Texture2D" uid="uid://bwrwxuhmap16h" path="res://Assets/Sprites/upperDock.png" id="5_0376c"]
+[ext_resource type="Script" path="res://Scripts/Docks.cs" id="4_5uksu"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="5_a0gx0"]
 [ext_resource type="Texture2D" uid="uid://duy6wg1phbgw7" path="res://Assets/Sprites/bottomDock.png" id="5_j6b4v"]
 [ext_resource type="PackedScene" uid="uid://0g0jmgfi4uwm" path="res://Scenes/ui.tscn" id="5_ljph4"]
 [ext_resource type="AudioStream" uid="uid://1ke4y0tpseh" path="res://Assets/Musics/080 Awakening Wood (Olimar) .mp3" id="7_i1fb3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qtt"]
-size = Vector2(631, 98)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pygm4"]
-size = Vector2(69, 272)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8pr1o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1wjby"]
 shader = ExtResource("3_uhnxy")
@@ -35,6 +26,13 @@ shader_parameter/FOAM_COL = Color(0.937252, 0.939333, 0.79239, 1)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qwaq5"]
 size = Vector2(500, 500)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8pr1o"]
+
+[sub_resource type="Gradient" id="Gradient_ixnk4"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_48f17"]
+gradient = SubResource("Gradient_ixnk4")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jp6w3"]
 shader = ExtResource("3_uhnxy")
 shader_parameter/OCTAVE = 6
@@ -48,6 +46,12 @@ shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
 shader_parameter/WATER2_COL = Color(0.0392157, 0.282353, 0.780392, 1)
 shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qtt"]
+size = Vector2(631, 98)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pygm4"]
+size = Vector2(69, 272)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nousa")
 
@@ -58,14 +62,46 @@ position = Vector2(142, -2)
 verticalSpeed = 150.0
 horizontalSpeed = 80.0
 
-[node name="UI" parent="." instance=ExtResource("5_ljph4")]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("3_7lm4o")
 
-[node name="Health" parent="UI" instance=ExtResource("4_0frve")]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(990, 0)
+
+[node name="WaterSprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_1wjby")
+position = Vector2(14965, 11412.5)
+scale = Vector2(60.86, 53.594)
+texture = SubResource("PlaceholderTexture2D_qwaq5")
+
+[node name="UpperDockSprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_8pr1o")
+position = Vector2(5396, -682.5)
+scale = Vector2(176.375, 18.1094)
+texture = SubResource("GradientTexture2D_48f17")
+
+[node name="DownDockSprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+z_index = 1
+position = Vector2(241, 148)
+scale = Vector2(2, 2)
+texture = ExtResource("5_j6b4v")
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_jp6w3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" parent="." instance=ExtResource("5_ljph4")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(269, 54)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(281, 2)
+zoom = Vector2(1.9, 1.9)
 limit_left = -100
 limit_top = -10
 limit_bottom = 10
@@ -75,6 +111,12 @@ editor_draw_limits = true
 script = ExtResource("5_a0gx0")
 
 [node name="Timer" type="Timer" parent="Camera2D"]
+
+[node name="Docks" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_5uksu")
+
+[node name="Docks" type="Node2D" parent="Docks"]
 
 [node name="Limits" type="Node2D" parent="."]
 
@@ -109,57 +151,16 @@ shape = SubResource("RectangleShape2D_pygm4")
 stream = ExtResource("7_i1fb3")
 bus = &"Music"
 
-[node name="Backgrounds" type="Node2D" parent="."]
-
-[node name="UpperDockParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
-layer = -1
-script = ExtResource("3_0eejo")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/UpperDockParallaxBackground"]
-motion_mirroring = Vector2(1000, 0)
-
-[node name="UpperDockSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
-material = SubResource("ShaderMaterial_8pr1o")
-position = Vector2(245, -194)
-scale = Vector2(2, 2)
-texture = ExtResource("5_0376c")
-
-[node name="DownDockParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
-layer = 1
-script = ExtResource("3_0eejo")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/DownDockParallaxBackground"]
-motion_mirroring = Vector2(1000, 0)
-
-[node name="DownDockSprite2D" type="Sprite2D" parent="Backgrounds/DownDockParallaxBackground/ParallaxLayer"]
-z_index = 5
-z_as_relative = false
-position = Vector2(244, 130)
-scale = Vector2(2, 2)
-texture = ExtResource("5_j6b4v")
-
-[node name="WaterParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
-layer = -2
-script = ExtResource("3_0eejo")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/WaterParallaxBackground"]
-motion_mirroring = Vector2(990, 0)
-
-[node name="WaterSprite2D" type="Sprite2D" parent="Backgrounds/WaterParallaxBackground/ParallaxLayer"]
-material = SubResource("ShaderMaterial_1wjby")
-position = Vector2(14965, 11412.5)
-scale = Vector2(60.86, 53.594)
-texture = SubResource("PlaceholderTexture2D_qwaq5")
-
-[node name="ColorRect" type="ColorRect" parent="Backgrounds/WaterParallaxBackground"]
+[node name="DocksParallaxBackground" type="ParallaxBackground" parent="."]
 visible = false
-z_index = -1
-material = SubResource("ShaderMaterial_jp6w3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="DocksParallaxBackground"]
+motion_mirroring = Vector2(10000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="DocksParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_8pr1o")
+position = Vector2(500, -682.5)
+scale = Vector2(176.375, 18.1094)
+texture = SubResource("GradientTexture2D_48f17")
 
 [connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]
-[connection signal="TakedDamage" from="Player" to="UI/Health" method="OnPlayerTakedDamage"]
