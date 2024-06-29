@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1719674326
+::res://::1719674517
 default_bus_layout.tres::AudioBusLayout::7675710726717046010::1719665265::0::1::::<><>::
 Exit.tres::Theme::2694374392165009463::1719671755::0::1::::<><>::uid://cfi7ck56o646y::::res://image/exit_bot-removebg-preview.png
 icon.svg::CompressedTexture2D::4853672526400736402::1719665265::1719665460::1::::<><>::
@@ -32,16 +32,16 @@ player.png::CompressedTexture2D::1267623641756386954::1719665265::1719665460::1:
 player_idle.png::CompressedTexture2D::8107861629163985404::1719665265::1719665460::1::::<><>::
 player_shadow.png::CompressedTexture2D::4735444392660494759::1719665265::1719665460::1::::<><>::
 upperDock.png::CompressedTexture2D::3967047574475984069::1719665265::1719665460::1::::<><>::
-::res://image/::1719674326
-button-for-8-bit-games-start-beginning-vector-removebg-preview.png::CompressedTexture2D::4412170441669687872::1719667273::1719671098::1::::<><>::
-exit_bot-removebg-preview.png::CompressedTexture2D::5142247695971272674::1719666930::1719671098::1::::<><>::
-Screenshot 2024-06-29 at 11.55.27.png::CompressedTexture2D::8042027312548257680::1719674295::1719674327::1::::<><>::
-::res://Scenes/::1719674202
+::res://image/::1719674517
+Exit.png::CompressedTexture2D::6223155583956981646::1719666930::1719674526::1::::<><>::
+Logo_cdf.png::CompressedTexture2D::1495595208961584664::1719674295::1719674526::1::::<><>::
+Start.png::CompressedTexture2D::1448674966831829692::1719667273::1719674526::1::::<><>::
+::res://Scenes/::1719674345
 barrel.tscn::PackedScene::5085533765474275551::1719665265::0::1::::<><>::uid://wcbmqiici0xj::::res://Assets/Sprites/barrel.png<>res://Scripts/Barrel.cs
 barrels_ui.tscn::PackedScene::6257303535725864292::1719665265::0::1::::<><>::uid://bibtycqe1xnh7::::res://Assets/Sprites/barr.png<>res://Scripts/BarrelsUi.cs
-game.tscn::PackedScene::988301110063632684::1719674202::0::1::::<><>::uid://cc6ysyvr2gfw7::::res://Scenes/player.tscn<>res://Scripts/GameManager.cs<>res://Scripts/Parallax.cs<>res://Assets/Shaders/water.gdshader<>uid://c4t4cgcxdclbw::::res://Scenes/health.tscn<>uid://cvfc40sf8kfge::::res://Scenes/barrels_ui.tscn<>uid://bwrwxuhmap16h::::res://Assets/Sprites/upperDock.png<>res://Scripts/Camera.gd<>uid://duy6wg1phbgw7::::res://Assets/Sprites/bottomDock.png<>uid://0g0jmgfi4uwm::::res://Scenes/ui.tscn<>uid://1ke4y0tpseh::::res://Assets/Musics/080 Awakening Wood (Olimar) .mp3<>uid://bm6y1i84cdf1q::::res://Assets/Sprites/people.png<>uid://dmvpreqy2akhd::::res://Assets/Sprites/JO.png<>uid://cepp8621o2u36::::res://Scenes/barrel.tscn
+game.tscn::PackedScene::988301110063632684::1719674342::0::1::::<><>::uid://cc6ysyvr2gfw7::::res://Scenes/player.tscn<>res://Scripts/GameManager.cs<>res://Scripts/Parallax.cs<>res://Assets/Shaders/water.gdshader<>uid://c4t4cgcxdclbw::::res://Scenes/health.tscn<>uid://cvfc40sf8kfge::::res://Scenes/barrels_ui.tscn<>uid://bwrwxuhmap16h::::res://Assets/Sprites/upperDock.png<>res://Scripts/Camera.gd<>uid://duy6wg1phbgw7::::res://Assets/Sprites/bottomDock.png<>uid://0g0jmgfi4uwm::::res://Scenes/ui.tscn<>uid://1ke4y0tpseh::::res://Assets/Musics/080 Awakening Wood (Olimar) .mp3<>uid://bm6y1i84cdf1q::::res://Assets/Sprites/people.png<>uid://dmvpreqy2akhd::::res://Assets/Sprites/JO.png<>uid://cepp8621o2u36::::res://Scenes/barrel.tscn
 health.tscn::PackedScene::6849305693873139076::1719665265::0::1::::<><>::res://Scripts/Health.cs<>uid://bvtepxrv56mc1::::res://Assets/Sprites/heart.png
-intro.tscn::PackedScene::1335600003647190107::1719674202::0::1::::<><>::res://Scripts/intro.cs<>uid://dmtvarg7ngl4k::::res://image/Screenshot 2024-06-29 at 11.55.27.png
+intro.tscn::PackedScene::1335600003647190107::1719674343::0::1::::<><>::res://Scripts/intro.cs<>uid://dmtvarg7ngl4k::::res://image/Screenshot 2024-06-29 at 11.55.27.png
 menu.tscn::PackedScene::-1::1719673155::0::1::::<><>::
 player.tscn::PackedScene::4978705410964825056::1719665265::0::1::::<><>::res://Scripts/Player.cs<>uid://dnrrkcyay2xce::::res://Assets/Sprites/player_idle.png<>uid://bddbgaqokft8n::::res://Assets/Sprites/dust_particles.png<>uid://b43scq3j28fu0::::res://Assets/SFX/whistle.wav<>uid://b8p5cvl2pp2yd::::res://Assets/Sprites/player_shadow.png
 ui.tscn::PackedScene::1768641994227533648::1719665265::0::1::::<><>::

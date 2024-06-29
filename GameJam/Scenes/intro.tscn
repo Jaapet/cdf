@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ta8ewj01cix4"]
 
 [ext_resource type="Script" path="res://Scripts/intro.cs" id="1_m0b55"]
-[ext_resource type="Texture2D" uid="uid://dmtvarg7ngl4k" path="res://image/Screenshot 2024-06-29 at 11.55.27.png" id="2_6epb4"]
+[ext_resource type="Texture2D" uid="uid://vkqh8ga56q1m" path="res://image/Logo_cdf.png" id="2_627am"]
 
 [sub_resource type="Animation" id="Animation_u562t"]
 resource_name = "IN"
@@ -70,7 +70,7 @@ color = Color(0, 0, 0, 1)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(566.229, 362.821)
 scale = Vector2(0.413146, 0.379775)
-texture = ExtResource("2_6epb4")
+texture = ExtResource("2_627am")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -219.0
