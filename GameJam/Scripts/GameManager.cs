@@ -27,6 +27,5 @@ public partial class GameManager : Node2D
          ship.GlobalPosition = new Vector2(800, 0);
          hasSpawned = true;
       }
-      GD.Print(time);
    }
 }

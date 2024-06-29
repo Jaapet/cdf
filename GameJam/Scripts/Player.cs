@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using DwarfImpulse;
 
 public partial class Player : CharacterBody2D
 {
@@ -9,6 +10,8 @@ public partial class Player : CharacterBody2D
    private AudioStreamPlayer2D damageSoundPlayer;
    #endregion
 
+   [Signal] public delegate void TakedDamageEventHandler();
+
    [Export] private float verticalSpeed = 20f;
    [Export] private float horizontalSpeed = 20f;
    private Vector2 direction;
@@ -17,6 +20,8 @@ public partial class Player : CharacterBody2D
    private int currentHealth;
 
    private float leftLimit = 20;
+
+
 
    public override void _Ready()
    {
@@ -39,7 +44,6 @@ public partial class Player : CharacterBody2D
 
       Move();
    }
-
 
    private void ReadInput()
    {
@@ -87,7 +91,11 @@ public partial class Player : CharacterBody2D
 
    private void TakeDamage()
    {
+      // Sound
       damageSoundPlayer.Play();
+
+      // Screen Shake
+      EmitSignal(SignalName.TakedDamage);
    }
 
    private void OnDamageAreaBodyEntered(Node2D body)
