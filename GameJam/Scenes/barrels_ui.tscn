@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvfc40sf8kfge"]
+
+[ext_resource type="Texture2D" uid="uid://bibtycqe1xnh7" path="res://Assets/Sprites/barr.png" id="1_f2bg0"]
+[ext_resource type="Script" path="res://Scripts/BarrelsUi.cs" id="1_jx3gx"]
+
+[node name="BarrelsUI" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+script = ExtResource("1_jx3gx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="NbLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="XLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "x"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_f2bg0")
