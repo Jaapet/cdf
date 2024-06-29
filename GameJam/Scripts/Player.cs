@@ -12,6 +12,7 @@ public partial class Player : CharacterBody2D
    private Timer invincibilityTimer;
    private Timer jumpTimer;
    private GpuParticles2D damagedParticle;
+   private GpuParticles2D engineParticle;
    private CollisionShape2D collision;
    private AnimationPlayer animationPlayer;
    private Sprite2D shadowSprite;
@@ -43,6 +44,7 @@ public partial class Player : CharacterBody2D
       invincibilityTimer = GetNode<Timer>("InvincibilityTimer");
       jumpTimer = GetNode<Timer>("JumpTimer");
       damagedParticle = GetNode<GpuParticles2D>("Sprite2D/DamagedParticles2D");
+      engineParticle = GetNode<GpuParticles2D>("Sprite2D/EngineParticles2D");
       collision = GetNode<CollisionShape2D>("CollisionShape2D");
       shadowSprite = GetNode<Sprite2D>("ShadowSprite2D");
       animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -115,7 +117,18 @@ public partial class Player : CharacterBody2D
       // if ((GlobalPosition.X + velocity.X > GetViewportRect().Size.X / 4)
       // || (GlobalPosition.X + velocity.X) < 0)
       //    velocity.X = 0;
-      velocity = new Vector2(velocity.X - 20, velocity.Y);
+      if (direction.X < 0)
+      {
+         velocity = new Vector2(velocity.X - 80, velocity.Y);
+         engineParticle.Emitting = false;
+      }
+      else
+      {
+         velocity = new Vector2(velocity.X - 20, velocity.Y);
+         engineParticle.Emitting = true;
+
+      }
+
       ApplyVelocity(velocity);
    }
 
@@ -210,5 +223,10 @@ public partial class Player : CharacterBody2D
    private void OnJumpTimerTimeout()
    {
       canJump = true;
+   }
+
+   private void ActivateObstacleCollision(bool activate)
+   {
+      SetCollisionMaskValue(1, activate);
    }
 }
