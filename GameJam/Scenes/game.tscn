@@ -1,0 +1,179 @@
+[gd_scene load_steps=20 format=3 uid="uid://oc0f7f5ace5q"]
+
+[ext_resource type="PackedScene" uid="uid://cc6ysyvr2gfw7" path="res://Scenes/player.tscn" id="1_hh0f2"]
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_nousa"]
+[ext_resource type="Script" path="res://Scripts/Parallax.cs" id="3_0eejo"]
+[ext_resource type="Shader" path="res://Assets/Shaders/water.gdshader" id="3_uhnxy"]
+[ext_resource type="PackedScene" uid="uid://c4t4cgcxdclbw" path="res://Scenes/health.tscn" id="4_0frve"]
+[ext_resource type="Texture2D" uid="uid://bwrwxuhmap16h" path="res://Assets/Sprites/upperDock.png" id="5_0376c"]
+[ext_resource type="Script" path="res://Scripts/Camera.gd" id="5_a0gx0"]
+[ext_resource type="Texture2D" uid="uid://duy6wg1phbgw7" path="res://Assets/Sprites/bottomDock.png" id="5_j6b4v"]
+[ext_resource type="PackedScene" uid="uid://0g0jmgfi4uwm" path="res://Scenes/ui.tscn" id="5_ljph4"]
+[ext_resource type="AudioStream" uid="uid://1ke4y0tpseh" path="res://Assets/Musics/080 Awakening Wood (Olimar) .mp3" id="7_i1fb3"]
+[ext_resource type="Texture2D" uid="uid://bm6y1i84cdf1q" path="res://Assets/Sprites/people.png" id="9_mpl80"]
+[ext_resource type="Texture2D" uid="uid://dmvpreqy2akhd" path="res://Assets/Sprites/JO.png" id="10_bbvhy"]
+[ext_resource type="PackedScene" uid="uid://cepp8621o2u36" path="res://Scenes/barrel.tscn" id="13_3ka8y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qtt"]
+size = Vector2(631, 98)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pygm4"]
+size = Vector2(69, 272)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8pr1o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wjby"]
+shader = ExtResource("3_uhnxy")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Color(0, 0.484342, 0.475513, 1)
+shader_parameter/WATER2_COL = Color(5.29438e-07, 0.406232, 0.602409, 1)
+shader_parameter/FOAM_COL = Color(0.937252, 0.939333, 0.79239, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qwaq5"]
+size = Vector2(500, 500)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jp6w3"]
+shader = ExtResource("3_uhnxy")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.0392157, 0.282353, 0.780392, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_nousa")
+
+[node name="Player" parent="." instance=ExtResource("1_hh0f2")]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(122, -58)
+verticalSpeed = 150.0
+horizontalSpeed = 80.0
+
+[node name="UI" parent="." instance=ExtResource("5_ljph4")]
+
+[node name="Health" parent="UI" instance=ExtResource("4_0frve")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(267, 71)
+zoom = Vector2(2, 2)
+limit_left = -100
+limit_top = -10
+limit_bottom = 10
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+script = ExtResource("5_a0gx0")
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+
+[node name="Limits" type="Node2D" parent="."]
+
+[node name="DockCollision" type="StaticBody2D" parent="Limits"]
+position = Vector2(-17, -197)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision"]
+position = Vector2(305.5, 0)
+shape = SubResource("RectangleShape2D_g2qtt")
+
+[node name="DockCollision2" type="StaticBody2D" parent="Limits"]
+position = Vector2(-11, -193)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision2"]
+position = Vector2(298, 299)
+shape = SubResource("RectangleShape2D_g2qtt")
+
+[node name="Left" type="StaticBody2D" parent="Limits"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Left"]
+position = Vector2(-37.5, 3)
+shape = SubResource("RectangleShape2D_pygm4")
+
+[node name="Right" type="StaticBody2D" parent="Limits"]
+position = Vector2(643, 7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Right"]
+position = Vector2(-37.5, 3)
+shape = SubResource("RectangleShape2D_pygm4")
+
+[node name="MusicStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_i1fb3")
+bus = &"Music"
+
+[node name="Backgrounds" type="Node2D" parent="."]
+
+[node name="UpperDockParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
+layer = -1
+script = ExtResource("3_0eejo")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/UpperDockParallaxBackground"]
+position = Vector2(-13, -47)
+motion_mirroring = Vector2(500, 0)
+
+[node name="UpperDockSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_8pr1o")
+position = Vector2(241, -148)
+texture = ExtResource("5_0376c")
+
+[node name="PeopleSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
+position = Vector2(175, -160)
+texture = ExtResource("9_mpl80")
+
+[node name="JOSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
+position = Vector2(137, -108)
+texture = ExtResource("10_bbvhy")
+
+[node name="DownDockParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
+layer = 1
+script = ExtResource("3_0eejo")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/DownDockParallaxBackground"]
+position = Vector2(-7, -61)
+motion_mirroring = Vector2(500, 0)
+
+[node name="DownDockSprite2D" type="Sprite2D" parent="Backgrounds/DownDockParallaxBackground/ParallaxLayer"]
+z_index = 5
+z_as_relative = false
+position = Vector2(244, 130)
+texture = ExtResource("5_j6b4v")
+
+[node name="WaterParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
+layer = -2
+script = ExtResource("3_0eejo")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/WaterParallaxBackground"]
+motion_mirroring = Vector2(990, 0)
+
+[node name="WaterSprite2D" type="Sprite2D" parent="Backgrounds/WaterParallaxBackground/ParallaxLayer"]
+material = SubResource("ShaderMaterial_1wjby")
+position = Vector2(14965, 11412.5)
+scale = Vector2(60.86, 53.594)
+texture = SubResource("PlaceholderTexture2D_qwaq5")
+
+[node name="ColorRect" type="ColorRect" parent="Backgrounds/WaterParallaxBackground"]
+visible = false
+z_index = -1
+material = SubResource("ShaderMaterial_jp6w3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Barrel" parent="." instance=ExtResource("13_3ka8y")]
+position = Vector2(510, -64)
+
+[connection signal="TakedDamage" from="Player" to="UI/Health" method="OnPlayerTakedDamage"]
+[connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]
