@@ -118,7 +118,7 @@ public partial class Player : CharacterBody2D
       SetDamagedParticles();
 
       // Sound
-      damageSoundPlayer.Play();
+      //damageSoundPlayer.Play();
 
       // Screen Shake
       EmitSignal(SignalName.TakedDamage);
@@ -157,14 +157,27 @@ public partial class Player : CharacterBody2D
       sprite.Modulate = sprite.Modulate.A == 0 ? new Color(1, 1, 1, 1) : new Color(1, 1, 1, 0);
    }
 
+   private void CollectBarrel()
+   {
+      
+   }
+
+
    private void OnDamageAreaBodyEntered(Node2D body)
    {
       // For Obstacles
-      if (body.IsInGroup("water_object"))
+      if (body.IsInGroup("obstacle"))
       {
          WaterObject waterObject = (WaterObject)body;
          waterObject.Death();
          TakeDamage();
+      }
+      // For Barrel
+      if (body.IsInGroup("barrel"))
+      {
+         WaterObject waterObject = (WaterObject)body;
+         waterObject.Death();
+         CollectBarrel();
       }
    }
 

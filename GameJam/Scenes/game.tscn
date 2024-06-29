@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://oc0f7f5ace5q"]
+[gd_scene load_steps=20 format=3 uid="uid://oc0f7f5ace5q"]
 
 [ext_resource type="PackedScene" uid="uid://cc6ysyvr2gfw7" path="res://Scenes/player.tscn" id="1_hh0f2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_nousa"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://duy6wg1phbgw7" path="res://Assets/Sprites/bottomDock.png" id="5_j6b4v"]
 [ext_resource type="PackedScene" uid="uid://0g0jmgfi4uwm" path="res://Scenes/ui.tscn" id="5_ljph4"]
 [ext_resource type="AudioStream" uid="uid://1ke4y0tpseh" path="res://Assets/Musics/080 Awakening Wood (Olimar) .mp3" id="7_i1fb3"]
+[ext_resource type="Texture2D" uid="uid://bm6y1i84cdf1q" path="res://Assets/Sprites/people.png" id="9_mpl80"]
+[ext_resource type="Texture2D" uid="uid://dmvpreqy2akhd" path="res://Assets/Sprites/JO.png" id="10_bbvhy"]
+[ext_resource type="PackedScene" uid="uid://cepp8621o2u36" path="res://Scenes/barrel.tscn" id="13_3ka8y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2qtt"]
 size = Vector2(631, 98)
@@ -54,7 +57,7 @@ script = ExtResource("1_nousa")
 [node name="Player" parent="." instance=ExtResource("1_hh0f2")]
 unique_name_in_owner = true
 z_index = 1
-position = Vector2(142, -2)
+position = Vector2(122, -58)
 verticalSpeed = 150.0
 horizontalSpeed = 80.0
 
@@ -64,8 +67,8 @@ horizontalSpeed = 80.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(269, 54)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(267, 71)
+zoom = Vector2(2, 2)
 limit_left = -100
 limit_top = -10
 limit_bottom = 10
@@ -79,14 +82,14 @@ script = ExtResource("5_a0gx0")
 [node name="Limits" type="Node2D" parent="."]
 
 [node name="DockCollision" type="StaticBody2D" parent="Limits"]
-position = Vector2(-4, -151)
+position = Vector2(-17, -197)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision"]
 position = Vector2(305.5, 0)
 shape = SubResource("RectangleShape2D_g2qtt")
 
 [node name="DockCollision2" type="StaticBody2D" parent="Limits"]
-position = Vector2(-4, -151)
+position = Vector2(-11, -193)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision2"]
 position = Vector2(298, 299)
@@ -116,26 +119,34 @@ layer = -1
 script = ExtResource("3_0eejo")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/UpperDockParallaxBackground"]
-motion_mirroring = Vector2(1000, 0)
+position = Vector2(-13, -47)
+motion_mirroring = Vector2(500, 0)
 
 [node name="UpperDockSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
 material = SubResource("ShaderMaterial_8pr1o")
-position = Vector2(245, -194)
-scale = Vector2(2, 2)
+position = Vector2(241, -148)
 texture = ExtResource("5_0376c")
+
+[node name="PeopleSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
+position = Vector2(175, -160)
+texture = ExtResource("9_mpl80")
+
+[node name="JOSprite2D" type="Sprite2D" parent="Backgrounds/UpperDockParallaxBackground/ParallaxLayer"]
+position = Vector2(137, -108)
+texture = ExtResource("10_bbvhy")
 
 [node name="DownDockParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
 layer = 1
 script = ExtResource("3_0eejo")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Backgrounds/DownDockParallaxBackground"]
-motion_mirroring = Vector2(1000, 0)
+position = Vector2(-7, -61)
+motion_mirroring = Vector2(500, 0)
 
 [node name="DownDockSprite2D" type="Sprite2D" parent="Backgrounds/DownDockParallaxBackground/ParallaxLayer"]
 z_index = 5
 z_as_relative = false
 position = Vector2(244, 130)
-scale = Vector2(2, 2)
 texture = ExtResource("5_j6b4v")
 
 [node name="WaterParallaxBackground" type="ParallaxBackground" parent="Backgrounds"]
@@ -161,5 +172,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]
+[node name="Barrel" parent="." instance=ExtResource("13_3ka8y")]
+position = Vector2(510, -64)
+
 [connection signal="TakedDamage" from="Player" to="UI/Health" method="OnPlayerTakedDamage"]
+[connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]

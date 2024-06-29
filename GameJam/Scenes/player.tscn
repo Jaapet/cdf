@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://cc6ysyvr2gfw7"]
+[gd_scene load_steps=17 format=3 uid="uid://cc6ysyvr2gfw7"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
-[ext_resource type="Texture2D" uid="uid://scbtucc4mo0q" path="res://Assets/Sprites/player.png" id="2_x1wdv"]
+[ext_resource type="Texture2D" uid="uid://dnrrkcyay2xce" path="res://Assets/Sprites/player_idle.png" id="2_3y4wq"]
 [ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_8c8e7"]
 [ext_resource type="AudioStream" uid="uid://b43scq3j28fu0" path="res://Assets/SFX/whistle.wav" id="3_hn01d"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ciqb7"]
-radius = 7.0
+radius = 2.0
+height = 18.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_au34i"]
 particle_flag_disable_z = true
@@ -49,6 +50,46 @@ anim_speed_max = 1.0
 turbulence_enabled = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dd51"]
+radius = 4.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_ryvad"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_h2agm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mscjh"]
+_data = {
+"RESET": SubResource("Animation_h2agm"),
+"idle": SubResource("Animation_ryvad")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_tj03s")
@@ -59,24 +100,27 @@ shape = SubResource("CapsuleShape2D_ciqb7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(2, -9)
-scale = Vector2(2, 2)
-texture = ExtResource("2_x1wdv")
+position = Vector2(1, -6)
+texture = ExtResource("2_3y4wq")
+hframes = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
 z_as_relative = false
-position = Vector2(-70, 90)
+position = Vector2(-7, 4)
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_au34i")
 
 [node name="GPUParticles2D3" type="GPUParticles2D" parent="Sprite2D"]
+visible = false
 z_as_relative = false
-position = Vector2(-15, 100)
+position = Vector2(-41, 11)
 amount = 43
 process_material = SubResource("ParticleProcessMaterial_v34ou")
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Sprite2D"]
 z_as_relative = false
-position = Vector2(40, 95)
+position = Vector2(-8, 7)
+amount = 30
 process_material = SubResource("ParticleProcessMaterial_au34i")
 
 [node name="DamagedParticles2D" type="GPUParticles2D" parent="Sprite2D"]
@@ -106,6 +150,10 @@ volume_db = 1.763
 [node name="InvincibilityTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mscjh")
+}
+autoplay = "idle"
 
 [connection signal="body_entered" from="DamageArea2D" to="." method="OnDamageAreaBodyEntered"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="OnInvincibilityTimerTimeout"]
