@@ -4,15 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://bvtepxrv56mc1" path="res://Assets/Sprites/heart.png" id="1_nsl35"]
 
 [node name="Health" type="PanelContainer"]
-offset_right = 216.0
-offset_bottom = 55.0
+offset_right = 188.0
+offset_bottom = 53.0
 script = ExtResource("1_4sdp0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
