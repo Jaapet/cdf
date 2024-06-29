@@ -1,11 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://cepp8621o2u36"]
+[gd_scene load_steps=10 format=3 uid="uid://cepp8621o2u36"]
 
 [ext_resource type="Texture2D" uid="uid://wcbmqiici0xj" path="res://Assets/Sprites/barrel.png" id="1_3hi1m"]
 [ext_resource type="Script" path="res://Scripts/Barrel.cs" id="1_7n4ap"]
+[ext_resource type="Shader" path="res://Assets/Shaders/highlight.gdshader" id="2_266e8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dnsk"]
 radius = 4.0
 height = 18.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghy55"]
+shader = ExtResource("2_266e8")
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/frequency = 1.0
+shader_parameter/highlight_speed = 6.0
+shader_parameter/highlight_width = 15.0
 
 [sub_resource type="Animation" id="Animation_ey683"]
 resource_name = "Death"
@@ -107,6 +115,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_3dnsk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ghy55")
 position = Vector2(0, -5)
 texture = ExtResource("1_3hi1m")
 hframes = 2

@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://oc0f7f5ace5q"]
+[gd_scene load_steps=23 format=3 uid="uid://oc0f7f5ace5q"]
 
 [ext_resource type="PackedScene" uid="uid://cc6ysyvr2gfw7" path="res://Scenes/player.tscn" id="1_hh0f2"]
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_nousa"]
+[ext_resource type="PackedScene" uid="uid://emffocpuh6g7" path="res://Scenes/spawner.tscn" id="2_ageex"]
 [ext_resource type="Script" path="res://Scripts/Parallax.cs" id="3_0eejo"]
 [ext_resource type="Shader" path="res://Assets/Shaders/water.gdshader" id="3_uhnxy"]
 [ext_resource type="PackedScene" uid="uid://c4t4cgcxdclbw" path="res://Scenes/health.tscn" id="4_0frve"]
@@ -19,7 +20,7 @@
 size = Vector2(631, 98)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pygm4"]
-size = Vector2(69, 272)
+size = Vector2(69, 431)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pr1o"]
 
@@ -72,10 +73,17 @@ adjustment_saturation = 0.69
 [node name="Game" type="Node2D"]
 script = ExtResource("1_nousa")
 
+[node name="Spawner" parent="." instance=ExtResource("2_ageex")]
+position = Vector2(589, -59)
+objScene = ExtResource("13_3ka8y")
+maxTime = 15.0
+upY = -75.0
+downY = 75.0
+
 [node name="Player" parent="." instance=ExtResource("1_hh0f2")]
 unique_name_in_owner = true
 z_index = 1
-position = Vector2(122, -58)
+position = Vector2(117, -54)
 verticalSpeed = 150.0
 horizontalSpeed = 80.0
 
@@ -105,6 +113,7 @@ script = ExtResource("5_a0gx0")
 
 [node name="DockCollision" type="StaticBody2D" parent="Limits"]
 position = Vector2(-15, -194)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision"]
 position = Vector2(305.5, 0)
@@ -112,19 +121,22 @@ shape = SubResource("RectangleShape2D_g2qtt")
 
 [node name="DockCollision2" type="StaticBody2D" parent="Limits"]
 position = Vector2(-11, -193)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/DockCollision2"]
 position = Vector2(298, 299)
 shape = SubResource("RectangleShape2D_g2qtt")
 
 [node name="Left" type="StaticBody2D" parent="Limits"]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Left"]
-position = Vector2(-37.5, 3)
+position = Vector2(-37.5, -76.5)
 shape = SubResource("RectangleShape2D_pygm4")
 
 [node name="Right" type="StaticBody2D" parent="Limits"]
 position = Vector2(643, 7)
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/Right"]
 position = Vector2(-37.5, 3)

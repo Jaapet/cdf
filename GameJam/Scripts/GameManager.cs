@@ -19,6 +19,8 @@ public partial class GameManager : Node2D
    {
       base._Process(delta);
 
+      scrollingSpeed += 0.00001f;
+
       time += delta;
       if (time > 3 && !hasSpawned)
       {
