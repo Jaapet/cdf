@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "DgpWzDvb17U=",
+  "success": true,
+  "projectFilePath": "/Users/edilson/Documents/Code/GODO/cdf/GameJam/GameJam.csproj",
+  "expectedPackageFiles": [
+    "/Users/edilson/.nuget/packages/godot.sourcegenerators/4.2.2/godot.sourcegenerators.4.2.2.nupkg.sha512",
+    "/Users/edilson/.nuget/packages/godotsharp/4.2.2/godotsharp.4.2.2.nupkg.sha512",
+    "/Users/edilson/.nuget/packages/godotsharpeditor/4.2.2/godotsharpeditor.4.2.2.nupkg.sha512",
+    "/Users/edilson/.nuget/packages/microsoft.netcore.app.ref/6.0.31/microsoft.netcore.app.ref.6.0.31.nupkg.sha512",
+    "/Users/edilson/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.31/microsoft.aspnetcore.app.ref.6.0.31.nupkg.sha512"
+  ],
+  "logs": []
+}

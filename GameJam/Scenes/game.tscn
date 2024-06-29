@@ -199,6 +199,3 @@ position = Vector2(510, -64)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0hrqe")
-
-[connection signal="TakedDamage" from="Player" to="UI/Health" method="OnPlayerTakedDamage"]
-[connection signal="TakedDamage" from="Player" to="Camera2D" method="OnPlayerTakedDamage"]

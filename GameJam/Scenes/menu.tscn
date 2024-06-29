@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3pvbbxjt53yd"]
+
+[ext_resource type="Script" path="res://Scripts/menu.cs" id="1_w8vby"]
+[ext_resource type="Theme" uid="uid://benf7ngo40b4b" path="res://Exit.tres" id="2_dhaoh"]
+[ext_resource type="Theme" uid="uid://c6ujk78ewkgaf" path="res://Start.tres" id="3_0m3rl"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8vby")
+
+[node name="quit2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 532.0
+offset_right = 690.0
+offset_bottom = 612.0
+theme = ExtResource("2_dhaoh")
+
+[node name="Intro" type="Button" parent="."]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 211.0
+offset_right = 683.0
+offset_bottom = 290.0
+theme = ExtResource("3_0m3rl")
+
+[connection signal="pressed" from="quit2" to="." method="_on_quit_2_pressed"]
+[connection signal="pressed" from="Intro" to="." method="_on_intro_pressed"]

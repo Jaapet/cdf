@@ -12,20 +12,20 @@ public partial class GameManager : Node2D
 
    public override void _Ready()
    {
-      base._Ready();
+	  base._Ready();
    }
 
    public override void _Process(double delta)
    {
-      base._Process(delta);
+	  base._Process(delta);
 
-      time += delta;
-      if (time > 3 && !hasSpawned)
-      {
-         Node2D ship = shipScene.Instantiate() as Node2D;
-         GetTree().Root.GetChild(0).AddChild(ship);
-         ship.GlobalPosition = new Vector2(800, 0);
-         hasSpawned = true;
-      }
+	  time += delta;
+	  if (time > 3 && !hasSpawned)
+	  {
+		 Node2D ship = shipScene.Instantiate() as Node2D;
+		 GetTree().Root.GetChild(0).AddChild(ship);
+		 ship.GlobalPosition = new Vector2(800, 0);
+		 hasSpawned = true;
+	  }
    }
 }
