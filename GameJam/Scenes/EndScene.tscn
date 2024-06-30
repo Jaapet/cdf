@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy6s50ya7a8m"]
+
+[ext_resource type="Script" path="res://Scripts/EndScene.cs" id="1_6sbkm"]
+[ext_resource type="Theme" uid="uid://daumhj85c8lci" path="res://MenuButton.tres" id="2_8j530"]
+
+[node name="EndScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_6sbkm")
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 145.0
+offset_bottom = 43.0
+theme = ExtResource("2_8j530")
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
