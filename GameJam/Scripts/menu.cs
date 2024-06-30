@@ -10,6 +10,6 @@ public partial class menu : Control
 
 	private void _on_intro_pressed()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/game.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/fin.tscn");
 	}
 }

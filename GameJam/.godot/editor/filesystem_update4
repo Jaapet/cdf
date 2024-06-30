@@ -19,3 +19,5 @@ res://Scripts/menu.cs
 res://Scripts/intro.cs
 res://Scenes/intro.tscn
 res://Scenes/menu.tscn
+res://Scenes/fin.tscn
+res://Scripts/fin.cs

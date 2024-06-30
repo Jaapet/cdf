@@ -14,7 +14,7 @@ public partial class intro : Node2D
 		await ToSignal(GetTree().CreateTimer(6), "timeout");
 		
 		GetNode<AnimationPlayer>("AnimationPlayer").Play("OUT");
-		await ToSignal(GetTree().CreateTimer(3), "timeout");
+		await ToSignal(GetTree().CreateTimer(2), "timeout");
 		
 		GetTree().ChangeSceneToFile("res://Scenes/menu.tscn");
 	}

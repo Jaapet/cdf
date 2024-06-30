@@ -1,2 +1,7 @@
-AnimationPlayer
+Control
+Node2D
+Button
 ColorRect
+AudioStreamPlayer
+AnimationPlayer
+Sprite2D
