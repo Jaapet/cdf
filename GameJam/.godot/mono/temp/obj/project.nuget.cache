@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "d7ajBuJ8u1ipLuv83ZulJ4vzcnQWkA+ILUxVopY9FyobZpy6dQ7F+uJZ+ILTLYBxzC977+kEIwPrcs9igfZAtg==",
+  "success": true,
+  "projectFilePath": "/home/fbardeau/other_push_gaME/GameJam/GameJam.csproj",
+  "expectedPackageFiles": [
+    "/home/fbardeau/.nuget/packages/godot.sourcegenerators/4.2.2/godot.sourcegenerators.4.2.2.nupkg.sha512",
+    "/home/fbardeau/.nuget/packages/godotsharp/4.2.2/godotsharp.4.2.2.nupkg.sha512",
+    "/home/fbardeau/.nuget/packages/godotsharpeditor/4.2.2/godotsharpeditor.4.2.2.nupkg.sha512",
+    "/home/fbardeau/.nuget/packages/microsoft.netcore.app.ref/6.0.30/microsoft.netcore.app.ref.6.0.30.nupkg.sha512",
+    "/home/fbardeau/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.30/microsoft.aspnetcore.app.ref.6.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}

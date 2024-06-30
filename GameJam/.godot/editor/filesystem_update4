@@ -1,0 +1,14 @@
+res://Scenes/game.tscn
+res://Scenes/Bridge.cs
+res://Scripts/Barrel.cs
+res://Scripts/BarrelsUi.cs
+res://Scripts/Docks.cs
+res://Scripts/GameManager.cs
+res://Scripts/Health.cs
+res://Scripts/Heart.cs
+res://Scripts/Parallax.cs
+res://Scripts/Player.cs
+res://Scripts/ShipSpawner.cs
+res://Scripts/Spawner.cs
+res://Scripts/WaterObject.cs
+res://Scripts/WaterShip.cs
