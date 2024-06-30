@@ -119,7 +119,7 @@ public partial class Player : CharacterBody2D
 	  ApplyVelocity(velocity);
    }
 
-   private void TakeDamage()
+   public void TakeDamage()
    {
 	  if (isInvincibible)
 		 return;
@@ -185,6 +185,15 @@ public partial class Player : CharacterBody2D
 
    private void OnDamageAreaBodyEntered(Node2D body)
    {
+	  
+	// For Poop yeaaah
+	if (body.IsInGroup("poop"))
+	  {
+		 GD.Print("youpi");
+		 WaterObject waterObject = (WaterObject)body;
+		 waterObject.Death();
+		 TakeDamage();
+	  }
 	  // For Obstacles
 	  if (body.IsInGroup("obstacle"))
 	  {

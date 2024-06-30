@@ -12,3 +12,14 @@ res://Scripts/Player.cs
 res://Scripts/WaterObject.cs
 res://Scenes/shark.tscn
 res://Scripts/Shark.cs
+res://Scripts/Camera.gd
+res://Scenes/player.tscn
+res://Assets/Shaders/highlight.gdshader
+res://Scripts/ShipSpawner.cs
+res://Scripts/Spawner.cs
+res://Scenes/poop_throw.tscn
+res://Scripts/poop_throw.cs
+res://Scenes/spawner.tscn
+res://Scenes/poop.tscn
+res://Scripts/poop.cs
+res://Scenes/barrel.tscn

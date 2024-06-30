@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://cc6ysyvr2gfw7"]
+[gd_scene load_steps=25 format=3 uid="uid://cc6ysyvr2gfw7"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_tj03s"]
 [ext_resource type="Texture2D" uid="uid://dnrrkcyay2xce" path="res://Assets/Sprites/player_idle.png" id="2_3y4wq"]
 [ext_resource type="Texture2D" uid="uid://bddbgaqokft8n" path="res://Assets/Sprites/dust_particles.png" id="3_8c8e7"]
 [ext_resource type="AudioStream" uid="uid://b43scq3j28fu0" path="res://Assets/SFX/whistle.wav" id="3_hn01d"]
 [ext_resource type="Texture2D" uid="uid://b8p5cvl2pp2yd" path="res://Assets/Sprites/player_shadow.png" id="5_nvq32"]
+[ext_resource type="AudioStream" uid="uid://bsirs60hykoas" path="res://Assets/SFX/Mario Jump - QuickSounds.com.mp3" id="6_b27mf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ciqb7"]
 radius = 2.0
@@ -14,7 +15,11 @@ height = 18.0
 particle_flag_disable_z = true
 gravity = Vector3(-80, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_6ad14"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mlg6o"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_d412m"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.21978), 0.0, 0.0, 0, 0]
@@ -26,11 +31,9 @@ curve = SubResource("Curve_d412m")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v34ou"]
 particle_flag_disable_z = true
 gravity = Vector3(-80, 0, 0)
-scale_min = 2.0
-scale_max = 2.0
+scale_min = 1.5
+scale_max = 1.5
 scale_curve = SubResource("CurveTexture_jomiy")
-color = Color(0.784314, 0.301961, 0.305882, 1)
-color_ramp = SubResource("GradientTexture1D_6ad14")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1fr3p"]
 particles_animation = true
@@ -49,6 +52,37 @@ gravity = Vector3(-50, 0, 0)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 turbulence_enabled = true
+
+[sub_resource type="Curve" id="Curve_llvw4"]
+_data = [Vector2(0.00609757, 1), 0.0, 0.0, 0, 0, Vector2(0.689024, 0.824176), 0.0, 0.0, 0, 0, Vector2(0.951219, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_adtg6"]
+curve = SubResource("Curve_llvw4")
+
+[sub_resource type="Curve" id="Curve_3vsec"]
+max_value = 1.5
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(0.670732, 1.5), 0.0, 0.0, 0, 0, Vector2(1, 0.516483), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ot0li"]
+curve = SubResource("Curve_3vsec")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_upuru"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+initial_velocity_min = 60.42
+initial_velocity_max = 91.67
+gravity = Vector3(0, 30, 0)
+damping_min = 13.542
+damping_max = 26.041
+scale_curve = SubResource("CurveTexture_ot0li")
+alpha_curve = SubResource("CurveTexture_adtg6")
+turbulence_enabled = true
+turbulence_noise_strength = 0.1
+turbulence_noise_scale = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dd51"]
 radius = 4.0
@@ -79,6 +113,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, -6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DamageArea2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D/GPUParticles2D2:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ryvad"]
@@ -111,7 +181,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.7, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, -6), Vector2(1, -12), Vector2(1, -12), Vector2(1, -6)]
+"values": [Vector2(1, -6), Vector2(1, -15), Vector2(1, -15), Vector2(1, -6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -128,19 +198,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [false, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/3/path = NodePath("Sprite2D/GPUParticles2D2:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -152,40 +222,93 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Sprite2D/GPUParticles2D2:emitting")
+tracks/4/path = NodePath(".:isJumping")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath(".:isJumping")
+tracks/5/path = NodePath("JumpTimer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/6/type = "method"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("JumpTimer")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0.9),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [-1],
 "method": &"start"
 }]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("JumpStreamPlayer2D:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("DamageArea2D/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"ActivateObstacleCollision"
+}, {
+"args": [true],
+"method": &"ActivateObstacleCollision"
+}]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Sprite2D/EngineParticles2D:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Sprite2D/SplashParticles2D:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mscjh"]
@@ -196,6 +319,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_tj03s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -204,6 +329,7 @@ shape = SubResource("CapsuleShape2D_ciqb7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
+y_sort_enabled = true
 position = Vector2(1, -6)
 texture = ExtResource("2_3y4wq")
 hframes = 2
@@ -214,12 +340,14 @@ position = Vector2(-7, 4)
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_au34i")
 
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="Sprite2D"]
-visible = false
+[node name="EngineParticles2D" type="GPUParticles2D" parent="Sprite2D"]
 z_as_relative = false
-position = Vector2(-41, 11)
-amount = 43
+material = SubResource("CanvasItemMaterial_mlg6o")
+position = Vector2(-9, 5)
+amount = 9
 process_material = SubResource("ParticleProcessMaterial_v34ou")
+texture = ExtResource("3_8c8e7")
+randomness = 0.29
 
 [node name="GPUParticles2D2" type="GPUParticles2D" parent="Sprite2D"]
 z_as_relative = false
@@ -237,6 +365,18 @@ process_material = SubResource("ParticleProcessMaterial_o7qw7")
 texture = ExtResource("3_8c8e7")
 lifetime = 2.0
 randomness = 0.26
+local_coords = true
+
+[node name="SplashParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+z_index = -1
+y_sort_enabled = true
+position = Vector2(-1, 4)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_upuru")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
 local_coords = true
 
 [node name="DamageArea2D" type="Area2D" parent="."]
@@ -264,9 +404,12 @@ visible = false
 texture = ExtResource("5_nvq32")
 
 [node name="JumpTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.8
+one_shot = true
 
 [node name="JumpStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_b27mf")
+volume_db = -8.814
 bus = &"SFX"
 
 [connection signal="body_entered" from="DamageArea2D" to="." method="OnDamageAreaBodyEntered"]

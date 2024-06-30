@@ -7,40 +7,54 @@ public partial class Shark : WaterObject
     private Vector2 velocity = new Vector2();
     private Timer randomMovementTimer;
 
+	[Export] private PackedScene sharkScene = ResourceLoader.Load<PackedScene>("res://Scenes/shark.tscn");
+
     public override void _Ready()
     {
         base._Ready();
-        // Initialize velocity to move left at a constant speed
         velocity = new Vector2(-Speed, 0);
 
-        // Initialize and start the random movement timer
+ 
         randomMovementTimer = new Timer();
         AddChild(randomMovementTimer);
-        randomMovementTimer.WaitTime = 1.0f; // Adjust this value for how often you want to change direction
+        randomMovementTimer.WaitTime = 1.0f;
         randomMovementTimer.Connect("timeout", new Callable(this, nameof(OnRandomMovementTimerTimeout)));
         randomMovementTimer.Start();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        // Move the shark to the left
+
         velocity.X = -Speed/4;
 
-        // Apply the velocity
         Velocity = velocity;
         MoveAndSlide();
+
+		if (GlobalPosition.X < -GetViewportRect().Size.X / 2)
+        {
+			QueueFree();
+        }
 
 		
     }
 
     private void OnRandomMovementTimerTimeout()
     {
-        // Randomly change vertical velocity
-        velocity.Y = (float)GD.RandRange(-100, 100); // Adjust range as needed
+		
+        velocity.Y = (float)GD.RandRange(-50, 50);
+		// spawn_shark();
+	
     }
 
-    public void SetInitialPosition(Vector2 position)
-    {
-        GlobalPosition = position;
-    }
+	// private void spawn_shark()
+	// {
+		// Shark sharkInstance = sharkScene.Instantiate<Shark>();
+        // GetTree().Root.GetChild(0).AddChild(sharkInstance);
+// 
+		// 
+		// sharkInstance.GlobalPosition = GlobalPosition;
+// 
+	// }
+
+
 }

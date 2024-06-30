@@ -3,12 +3,11 @@ using System;
 
 public partial class GameManager : Node2D
 {
-   public static double time = 0;
+   private double time = 0;
    [Export] public static float scrollingSpeed = 1f;
    public static int nbBarrels = 0;
 
    PackedScene shipScene = ResourceLoader.Load<PackedScene>("res://Scenes/water_ship.tscn");
-   PackedScene sharkScene = ResourceLoader.Load<PackedScene>("res://Scenes/shark.tscn");
    private bool hasSpawned = false;
 
    public override void _Ready()
@@ -29,13 +28,4 @@ public partial class GameManager : Node2D
 		 hasSpawned = true;
 	  }
    }
-
-   public void Spawnshark(){
-      Node2D shark = sharkScene.Instantiate() as Node2D;
-		 GetTree().Root.GetChild(0).AddChild(shark);
-		 shark.GlobalPosition = new Vector2(800, 0);
-		 hasSpawned = true;
-   }
-
-
 }

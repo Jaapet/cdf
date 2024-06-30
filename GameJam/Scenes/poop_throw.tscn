@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://pklaybjyw0oa"]
+
+[ext_resource type="Script" path="res://Scripts/poop_throw.cs" id="1_7lrcn"]
+[ext_resource type="Texture2D" uid="uid://b0gkgxmtxle1o" path="res://Assets/Sprites/melonchononfthe.png" id="2_100io"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wsobw"]
+
+[node name="Node2D" type="CharacterBody2D"]
+script = ExtResource("1_7lrcn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.094, 0.1)
+texture = ExtResource("2_100io")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wsobw")
