@@ -18,3 +18,4 @@ res://Scripts/WaterObject.cs
 res://Scripts/menu.cs
 res://Scripts/intro.cs
 res://Scenes/intro.tscn
+res://Scenes/menu.tscn
