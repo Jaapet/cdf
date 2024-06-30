@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1tts2vw3wg7q"]
+
+[ext_resource type="Script" path="res://Scenes/Bridge.cs" id="1_c8c7r"]
+[ext_resource type="Texture2D" uid="uid://whhd6au7w8ru" path="res://Assets/Sprites/bridge.png" id="1_mlcd1"]
+
+[node name="Bridge" type="Node2D"]
+z_index = 2
+script = ExtResource("1_c8c7r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 50
+position = Vector2(2.75, 48.25)
+scale = Vector2(1.22297, 2.198)
+texture = ExtResource("1_mlcd1")

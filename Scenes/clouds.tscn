@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://darssr7rfmmta"]
+
+[ext_resource type="Texture2D" uid="uid://cjueye2cb4ghv" path="res://Assets/Sprites/Environnement/Cloud.png" id="1_y5n3x"]
+
+[sub_resource type="Curve" id="Curve_7j77u"]
+_data = [Vector2(0, 0.725275), 0.0, 0.0, 0, 0, Vector2(0.695122, 0.538462), -0.957418, -0.957418, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_hmae6"]
+curve = SubResource("Curve_7j77u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ynf2"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 150, 1)
+inherit_velocity_ratio = 0.36
+spread = 26.25
+initial_velocity_max = 2.8
+gravity = Vector3(20, 0, 0)
+scale_min = 0.5
+scale_max = 4.15
+alpha_curve = SubResource("CurveTexture_hmae6")
+turbulence_enabled = true
+turbulence_noise_strength = 1.19
+turbulence_noise_scale = 2.824
+
+[node name="CloudsParticles2D" type="GPUParticles2D"]
+top_level = true
+z_index = 20
+position = Vector2(-280, -100)
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_1ynf2")
+texture = ExtResource("1_y5n3x")
+lifetime = 300.0
+preprocess = 101.66
+randomness = 0.55
+visibility_rect = Rect2(0, 0, 1e+06, 1e+06)

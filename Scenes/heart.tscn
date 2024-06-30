@@ -1,0 +1,170 @@
+[gd_scene load_steps=17 format=3 uid="uid://bvrll0xf7ocuj"]
+
+[ext_resource type="Script" path="res://Scripts/Heart.cs" id="1_os5xd"]
+[ext_resource type="Texture2D" uid="uid://cuc7m7c5pv7gh" path="res://Assets/Sprites/heart_idle.png" id="2_2jyqd"]
+[ext_resource type="Shader" path="res://Assets/Shaders/highlight.gdshader" id="2_sfjka"]
+[ext_resource type="AudioStream" uid="uid://dpsvdx2kqvsi5" path="res://Assets/SFX/Heart.wav" id="4_icxmv"]
+[ext_resource type="Texture2D" uid="uid://ddhi2451kqu4j" path="res://Assets/Sprites/spark.png" id="5_unxms"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6cvc"]
+shader = ExtResource("2_sfjka")
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/frequency = 1.0
+shader_parameter/highlight_speed = 6.0
+shader_parameter/highlight_width = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ihsf"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_jlx28"]
+resource_name = "Death"
+length = 0.4
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8e3vl"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tvws0"]
+_data = {
+"Death": SubResource("Animation_jlx28"),
+"Idle": SubResource("Animation_8e3vl")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7m8gc"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_7b64f"]
+_data = [Vector2(0.00609757, 1), 0.0, 0.0, 0, 0, Vector2(0.878049, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pg0va"]
+curve = SubResource("Curve_7b64f")
+
+[sub_resource type="Curve" id="Curve_bdvxi"]
+_data = [Vector2(0, 0.494505), 0.0, 0.0, 0, 0, Vector2(0.780488, 0.461538), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gyaia"]
+curve = SubResource("Curve_bdvxi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2ruf"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_gyaia")
+alpha_curve = SubResource("CurveTexture_pg0va")
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+
+[node name="Heart" type="CharacterBody2D"]
+script = ExtResource("1_os5xd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_v6cvc")
+texture = ExtResource("2_2jyqd")
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_5ihsf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tvws0")
+}
+autoplay = "Idle"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_icxmv")
+bus = &"SFX"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_7m8gc")
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_i2ruf")
+texture = ExtResource("5_unxms")
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
