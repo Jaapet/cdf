@@ -93,11 +93,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/fbardeau/Documents/Side_project/game_jam/game_jam/GameJam/GameJam.csproj",
+      "projectUniqueName": "/home/fbardeau/Documents/Side_project/game_jame_flokybranch/GameJam/GameJam.csproj",
       "projectName": "GameJam",
-      "projectPath": "/home/fbardeau/Documents/Side_project/game_jam/game_jam/GameJam/GameJam.csproj",
+      "projectPath": "/home/fbardeau/Documents/Side_project/game_jame_flokybranch/GameJam/GameJam.csproj",
       "packagesPath": "/home/fbardeau/.nuget/packages/",
-      "outputPath": "/home/fbardeau/Documents/Side_project/game_jam/game_jam/GameJam/.godot/mono/temp/obj/",
+      "outputPath": "/home/fbardeau/Documents/Side_project/game_jame_flokybranch/GameJam/.godot/mono/temp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/fbardeau/.nuget/NuGet/NuGet.Config"
