@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1719742846
+::res://::1719743308
 default_bus_layout.tres::AudioBusLayout::7675710726717046010::1719707931::0::1::::<><>::
 icon.svg::CompressedTexture2D::4853672526400736402::1719707931::1719707931::1::::<><>::
 ::res://Assets/::1719707931
@@ -37,15 +37,15 @@ shark.jpg::CompressedTexture2D::5753393366416867862::1719707931::1719707931::1::
 shark.png::CompressedTexture2D::7159986694642042545::1719707931::1719707931::1::::<><>::
 shit.png::CompressedTexture2D::2051878353155479931::1719707931::1719707931::1::::<><>::
 upperDock.png::CompressedTexture2D::3967047574475984069::1719707931::1719707931::1::::<><>::
-::res://Scenes/::1719742481
-barrel.tscn::PackedScene::5085533765474275551::1719742481::0::1::::<><>::uid://wcbmqiici0xj::::res://Assets/Sprites/barrel.png<>res://Scripts/Barrel.cs<>res://Assets/Shaders/highlight.gdshader
+::res://Scenes/::1719742856
+barrel.tscn::PackedScene::5085533765474275551::1719742856::0::1::::<><>::uid://wcbmqiici0xj::::res://Assets/Sprites/barrel.png<>res://Scripts/Barrel.cs<>res://Assets/Shaders/highlight.gdshader
 barrels_ui.tscn::PackedScene::6257303535725864292::1719707931::0::1::::<><>::uid://bibtycqe1xnh7::::res://Assets/Sprites/barr.png<>res://Scripts/BarrelsUi.cs
-game.tscn::PackedScene::988301110063632684::1719742481::0::1::::<><>::uid://cc6ysyvr2gfw7::::res://Scenes/player.tscn<>res://Scripts/GameManager.cs<>uid://cahi5fg6dvd6k::::res://Scenes/spawner.tscn<>res://Scripts/Parallax.cs<>res://Assets/Shaders/water.gdshader<>uid://c4t4cgcxdclbw::::res://Scenes/health.tscn<>uid://cvfc40sf8kfge::::res://Scenes/barrels_ui.tscn<>uid://bwrwxuhmap16h::::res://Assets/Sprites/upperDock.png<>res://Scripts/Camera.gd<>uid://duy6wg1phbgw7::::res://Assets/Sprites/bottomDock.png<>uid://0g0jmgfi4uwm::::res://Scenes/ui.tscn<>uid://bm6y1i84cdf1q::::res://Assets/Sprites/people.png<>uid://dmvpreqy2akhd::::res://Assets/Sprites/JO.png<>uid://cepp8621o2u36::::res://Scenes/barrel.tscn<>uid://dserobsh2nef0::::res://Scenes/shark.tscn<>uid://c66wcrgh1p3tw::::res://Scenes/water_ship.tscn<>uid://pklaybjyw0oa::::res://Scenes/poop_throw.tscn
+game.tscn::PackedScene::988301110063632684::1719742855::0::1::::<><>::uid://cc6ysyvr2gfw7::::res://Scenes/player.tscn<>res://Scripts/GameManager.cs<>uid://cahi5fg6dvd6k::::res://Scenes/spawner.tscn<>res://Scripts/Parallax.cs<>res://Assets/Shaders/water.gdshader<>uid://c4t4cgcxdclbw::::res://Scenes/health.tscn<>uid://cvfc40sf8kfge::::res://Scenes/barrels_ui.tscn<>uid://bwrwxuhmap16h::::res://Assets/Sprites/upperDock.png<>res://Scripts/Camera.gd<>uid://duy6wg1phbgw7::::res://Assets/Sprites/bottomDock.png<>uid://0g0jmgfi4uwm::::res://Scenes/ui.tscn<>uid://bm6y1i84cdf1q::::res://Assets/Sprites/people.png<>uid://dmvpreqy2akhd::::res://Assets/Sprites/JO.png<>uid://cepp8621o2u36::::res://Scenes/barrel.tscn<>uid://dserobsh2nef0::::res://Scenes/shark.tscn<>uid://c66wcrgh1p3tw::::res://Scenes/water_ship.tscn<>uid://pklaybjyw0oa::::res://Scenes/poop_throw.tscn
 health.tscn::PackedScene::6849305693873139076::1719707931::0::1::::<><>::res://Scripts/Health.cs<>uid://bvtepxrv56mc1::::res://Assets/Sprites/heart.png
-player.tscn::PackedScene::4978705410964825056::1719742479::0::1::::<><>::res://Scripts/Player.cs<>uid://dnrrkcyay2xce::::res://Assets/Sprites/player_idle.png<>uid://bddbgaqokft8n::::res://Assets/Sprites/dust_particles.png<>uid://b43scq3j28fu0::::res://Assets/SFX/whistle.wav<>uid://b8p5cvl2pp2yd::::res://Assets/Sprites/player_shadow.png<>uid://bsirs60hykoas::::res://Assets/SFX/Mario Jump - QuickSounds.com.mp3
-poop.tscn::PackedScene::3333002208635662121::1719742481::0::1::::<><>::res://Scripts/poop.cs<>uid://4h7ewaufwpq6::::res://Assets/Sprites/shit.png
-poop_throw.tscn::PackedScene::1074145581578607440::1719742481::0::1::::<><>::res://Scripts/poop_throw.cs<>uid://b0gkgxmtxle1o::::res://Assets/Sprites/melonchononfthe.png
-shark.tscn::PackedScene::8431976018256298059::1719742479::0::1::::<><>::res://Scripts/Shark.cs<>uid://daal61ulvfne4::::res://Assets/Sprites/shark.png
+player.tscn::PackedScene::4978705410964825056::1719742853::0::1::::<><>::res://Scripts/Player.cs<>uid://dnrrkcyay2xce::::res://Assets/Sprites/player_idle.png<>uid://bddbgaqokft8n::::res://Assets/Sprites/dust_particles.png<>uid://b43scq3j28fu0::::res://Assets/SFX/whistle.wav<>uid://b8p5cvl2pp2yd::::res://Assets/Sprites/player_shadow.png<>uid://bsirs60hykoas::::res://Assets/SFX/Mario Jump - QuickSounds.com.mp3
+poop.tscn::PackedScene::3333002208635662121::1719742856::0::1::::<><>::res://Scripts/poop.cs<>uid://4h7ewaufwpq6::::res://Assets/Sprites/shit.png
+poop_throw.tscn::PackedScene::1074145581578607440::1719742855::0::1::::<><>::res://Scripts/poop_throw.cs<>uid://b0gkgxmtxle1o::::res://Assets/Sprites/melonchononfthe.png
+shark.tscn::PackedScene::8431976018256298059::1719742853::0::1::::<><>::res://Scripts/Shark.cs<>uid://daal61ulvfne4::::res://Assets/Sprites/shark.png
 spawner.tscn::PackedScene::4787831594722813420::1719707931::0::1::::<><>::res://Scripts/Spawner.cs
 ui.tscn::PackedScene::1768641994227533648::1719707931::0::1::::<><>::
 water_ship.tscn::PackedScene::7014031478488925316::1719707931::0::1::::<><>::uid://b7elwxekvxuln::::res://Assets/Sprites/boat.png<>res://Scripts/WaterShip.cs<>uid://bddbgaqokft8n::::res://Assets/Sprites/dust_particles.png<>uid://egm3xysb2al5::::res://Assets/SFX/explosion.wav
