@@ -8,8 +8,8 @@ public partial class Spawner : Node2D
    #endregion
 
    [Export] private PackedScene objScene;
-   [Export] private float minTime = 5f;
-   [Export] private float maxTime = 8f;
+   [Export] private float minTime = 3.0f;
+   [Export] private float maxTime = 5.0f;
    [Export] private float upY = -50;
    [Export] private float downY = 50;
 
